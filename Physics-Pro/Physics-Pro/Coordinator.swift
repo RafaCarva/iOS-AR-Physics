@@ -13,6 +13,7 @@ import Combine
 class Coordinator: NSObject, ARSessionDelegate {
     
     weak var view: ARView?
+    var collisionSubscriptions = [Cancellable]()
     
     @objc func handleTap(_ recognizer: UITapGestureRecognizer) {
         
@@ -31,11 +32,25 @@ class Coordinator: NSObject, ARSessionDelegate {
             )
             box.physicsBody = PhysicsBodyComponent(
                 massProperties: .default,
-                material: .generate(),
+                material: .default,
                 mode: .dynamic
             )
-            box.generateCollisionShapes(recursive: true)
-            box.position = simd_make_float3(0, 0.7, 0)
+            box.position.y = 0.3
+            box.collision = CollisionComponent(
+                shapes: [.generateBox(size: [0.2,0.2,0.2])],
+                mode: .trigger,
+                filter: .sensor
+            )
+            
+            // Quando acontecer a colisão vai acontecer isso:
+            self.collisionSubscriptions.append(view.scene.subscribe(to: CollisionEvents.Began.self) { event in
+                box.model?.materials = [SimpleMaterial(color: .purple, isMetallic: true)]
+            })
+            
+            // Quando acabar a colisão vai acontecer isso:
+            self.collisionSubscriptions.append(view.scene.subscribe(to: CollisionEvents.Ended.self) { event in
+                box.model?.materials = [SimpleMaterial(color: .green, isMetallic: true)]
+            })
             
             anchorEntity.addChild(box)
             view.scene.anchors.append(anchorEntity)

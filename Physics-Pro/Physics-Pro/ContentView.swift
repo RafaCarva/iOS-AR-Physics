@@ -19,29 +19,22 @@ struct ARViewContainer: UIViewRepresentable {
     func makeUIView(context: Context) -> ARView {
         
         let arView = ARView(frame: .zero)
-        
-        // Plane que vai entender a colision com as boxs
-        let planeAnchorEntity = AnchorEntity(plane: .horizontal)
-        let plane = ModelEntity(
-            mesh: MeshResource.generatePlane(width: 1, depth: 1),
-            materials: [SimpleMaterial(color: .orange, isMetallic: true)]
-        )
-        plane.physicsBody = PhysicsBodyComponent(
-            massProperties: .default,
-            material: .generate(),
-            mode: .static
-        )
-        plane.generateCollisionShapes(recursive: true)
-        
-        planeAnchorEntity.addChild(plane)
-        arView.scene.anchors.append(planeAnchorEntity)
-        
         arView.addGestureRecognizer(UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap)))
+
+        let floorAnchor = AnchorEntity(plane: .horizontal)
+        
+        // Cria um cubo invisível com altura 0 para servir como chão
+        let floor = ModelEntity(mesh: MeshResource.generateBox(size: [1000, 0, 1000]),
+                                materials: [OcclusionMaterial()])
+        floor.generateCollisionShapes(recursive: true)
+        floor.physicsBody = PhysicsBodyComponent(massProperties: .default, material: .default, mode: .static)
+        
+        floorAnchor.addChild(floor)
+        arView.scene.addAnchor(floorAnchor)
         
         context.coordinator.view = arView
-        //arView.session.delegate = context.coordinator
-         
-         
+        arView.session.delegate = context.coordinator
+        
         return arView
         
     }
