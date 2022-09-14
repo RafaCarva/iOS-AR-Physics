@@ -13,6 +13,7 @@
 		8902AEC328CBA06A00FE87D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8902AEC228CBA06A00FE87D3 /* Assets.xcassets */; };
 		8902AEC628CBA06A00FE87D3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8902AEC528CBA06A00FE87D3 /* Preview Assets.xcassets */; };
 		8902AECD28CBA30A00FE87D3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8902AECC28CBA30A00FE87D3 /* Coordinator.swift */; };
+		8907EB4728D1FB22006A6A74 /* MovableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8907EB4628D1FB22006A6A74 /* MovableEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		8902AEC228CBA06A00FE87D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8902AEC528CBA06A00FE87D3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8902AECC28CBA30A00FE87D3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		8907EB4628D1FB22006A6A74 /* MovableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				8902AEBC28CBA06700FE87D3 /* AppDelegate.swift */,
 				8902AEBE28CBA06700FE87D3 /* ContentView.swift */,
 				8902AECC28CBA30A00FE87D3 /* Coordinator.swift */,
+				8907EB4628D1FB22006A6A74 /* MovableEntity.swift */,
 			);
 			path = "Physics-Pro";
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 				8902AEBF28CBA06700FE87D3 /* ContentView.swift in Sources */,
 				8902AEBD28CBA06700FE87D3 /* AppDelegate.swift in Sources */,
 				8902AEC128CBA06700FE87D3 /* Experience.rcproject in Sources */,
+				8907EB4728D1FB22006A6A74 /* MovableEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

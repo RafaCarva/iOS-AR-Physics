@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealityKit
+import ARKit
 
 struct ContentView : View {
     var body: some View {
@@ -19,24 +20,10 @@ struct ARViewContainer: UIViewRepresentable {
     func makeUIView(context: Context) -> ARView {
         
         let arView = ARView(frame: .zero)
-        arView.addGestureRecognizer(UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap)))
-
-        let floorAnchor = AnchorEntity(plane: .horizontal)
-        
-        // Cria um cubo invisível com altura 0 para servir como chão
-        let floor = ModelEntity(mesh: MeshResource.generateBox(size: [1000, 0, 1000]),
-                                materials: [OcclusionMaterial()])
-        floor.generateCollisionShapes(recursive: true)
-        floor.physicsBody = PhysicsBodyComponent(massProperties: .default, material: .default, mode: .static)
-        
-        floorAnchor.addChild(floor)
-        arView.scene.addAnchor(floorAnchor)
-        
         context.coordinator.view = arView
-        arView.session.delegate = context.coordinator
+        context.coordinator.buildEnvironment()
         
         return arView
-        
     }
     
     func makeCoordinator() -> Coordinator {
