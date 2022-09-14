@@ -15,6 +15,17 @@ struct ContentView : View {
     }
 }
 
+extension ARView: ARCoachingOverlayViewDelegate {
+    func addCoaching() {
+        let coachingOverlay = ARCoachingOverlayView()
+                coachingOverlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                coachingOverlay.goal = .horizontalPlane
+                coachingOverlay.session = self.session
+                coachingOverlay.delegate = self
+                self.addSubview(coachingOverlay)
+    }
+}
+
 struct ARViewContainer: UIViewRepresentable {
     
     func makeUIView(context: Context) -> ARView {
@@ -22,6 +33,8 @@ struct ARViewContainer: UIViewRepresentable {
         let arView = ARView(frame: .zero)
         context.coordinator.view = arView
         context.coordinator.buildEnvironment()
+        
+        arView.addCoaching()
         
         return arView
     }
